@@ -22,7 +22,7 @@ public class PourButtonController : MonoBehaviour
         Debug.Log($"Held for: {holdDuration:F2} seconds");
         pouringGameScript.Pour(holdDuration);
         pouringGameScript.SetPourImageActive(false);
-        
+        pouringGameScript.SetIsCupMoving2(true);
     }
 
     // Update is called once per frame

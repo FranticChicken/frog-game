@@ -26,10 +26,11 @@ public class PouringGame : MonoBehaviour
 
     //demo 
     bool demo = true;
-    float demotimer = 5.0f;
+    float demotimer = 2.0f;
 
     //cup moving animation
     bool isCupMoving = false;
+    bool isCupMoving2 = false;
     float targetX = 0f;
     float targetY = 27f;
     Vector2 targetPosition;
@@ -58,9 +59,10 @@ public class PouringGame : MonoBehaviour
         maxFill = glassRect.rect.height;
     }
 
+    //visually shows how filled the glass is
     public void SetFillAmount()
     {
-        //amountFilled = fill;
+        
 
         float newHeight = (amountFilled / maxFill) * maxFill;
 
@@ -78,11 +80,14 @@ public class PouringGame : MonoBehaviour
         
     }
 
+    //makes the amount filled based off time the player poured
+    //function called in the Pour Button Controller script
     public void Pour(float timePoured) 
     {
         amountFilled = timePoured * 25;
     }
     
+
     void PourDemo()
     {   
         amountFilled += (25 * Time.deltaTime);
@@ -92,14 +97,14 @@ public class PouringGame : MonoBehaviour
             liquidPouringImage.gameObject.SetActive(false);
 
             
-            
+            //pause after the demo before it is the players turn
             if(demotimer > 0)
             {
                 demotimer -= Time.deltaTime;
                 if( demotimer <= 0)
                 {
                     amountFilled = 0;
-                    SetPourButtonActive(true);
+                    
                     isCupMoving = true;
                     demo = false;
                 }
@@ -133,6 +138,10 @@ public class PouringGame : MonoBehaviour
         pourButton.gameObject.SetActive(active);
     }
 
+    public void SetIsCupMoving2(bool isIt)
+    {
+        isCupMoving2 = isIt;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -145,15 +154,26 @@ public class PouringGame : MonoBehaviour
             PourDemo();
         }
         
-
+        //if iscupmoving = true and 
         if(isCupMoving == true)
         {
             MoveCupUp(false);
         }
 
-        if(glassStuffRect.anchoredPosition.y >= 200 || glassStuffRect.anchoredPosition.y <= -200)
+        if(glassStuffRect.anchoredPosition.y <= -250)
         {
             isCupMoving = false;
+            SetPourButtonActive(true);
+        }
+
+        if(isCupMoving2 == true)
+        {
+            MoveCupUp(true);
+        }
+
+        if(glassStuffRect.anchoredPosition.y >= 27)
+        {
+            isCupMoving2 = false;
         }
 
 
