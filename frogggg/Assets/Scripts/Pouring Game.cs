@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using NUnit.Framework;
 
 
 public class PouringGame : MonoBehaviour
@@ -11,6 +12,9 @@ public class PouringGame : MonoBehaviour
     public Image liquidFill;
     public Image bottleImage;
     public Image liquidPouringImage;
+
+    //text
+    public TextMeshProUGUI scoreText;
 
     //fill mechanic
     public float amountFilled, maxFill;
@@ -51,6 +55,8 @@ public class PouringGame : MonoBehaviour
         targetPosition = new Vector2(targetX, targetY);
         targetX = 0;
         targetY = -200f;
+
+        scoreText.gameObject.SetActive(false);
     }
 
     //sets the max fill height to the same as the glass height (important for when we change the glass later)
@@ -169,15 +175,24 @@ public class PouringGame : MonoBehaviour
         if(isCupMoving2 == true)
         {
             MoveCupUp(true);
+            SetPourButtonActive(false);
         }
 
         if(glassStuffRect.anchoredPosition.y >= 27)
         {
             isCupMoving2 = false;
+            
         }
 
+        if(demo == false && isCupMoving == false && isCupMoving2 == false && glassStuffRect.anchoredPosition.y >= 27)
+        {
+            scoreText.gameObject.SetActive(true);
+        }
+        
 
-            Debug.Log(isCupMoving);
+        Debug.Log(isCupMoving);
         Debug.Log(targetY);
+
+        scoreText.text = "Score: " + amountFilled.ToString("F0"); 
     }
 }
