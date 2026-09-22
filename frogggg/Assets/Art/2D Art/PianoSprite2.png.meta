@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7e7ad1b2c53b3f74c9060d45fe2d0ff8
+guid: 50e1b95c4c72d4a92824db95a09f0258
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5295801358785746071
-    second: PianoSprite_0
+      213: 2548335035782114766
+    second: PianoSprite2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PianoSprite_0
+      name: PianoSprite2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 64
+        width: 1280
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 794947707477e7940800000000000000
-      internalID: 5295801358785746071
+      spriteID: ecda970a6318d5320800000000000000
+      internalID: 2548335035782114766
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PianoSprite_0: 5295801358785746071
+      PianoSprite2_0: 2548335035782114766
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
