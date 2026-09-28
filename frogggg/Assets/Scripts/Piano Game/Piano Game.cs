@@ -2,9 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine.InputSystem;
-using System;
 
 
 public class PianoGame : MonoBehaviour
