@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class CardRandomization : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class CardRandomization : MonoBehaviour
 
     public Button dealButton;
 
+    [HideInInspector]
+    public Sprite[] placedCardsSprites;
+    [HideInInspector]
+    public Sprite [] playerCardsSprites;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dealButton.onClick.AddListener(DealPlacedCards);
         DealPlayerCards();
+        DealPlacedCards();
     }
 
     
@@ -24,7 +31,7 @@ public class CardRandomization : MonoBehaviour
         
 
         //InputActionReference[] requiredSequence = new InputActionReference[arrowImageHolders.Length];
-        Sprite[] placedCardsSprites = new Sprite[placedCardHolders.Length];
+        placedCardsSprites = new Sprite[placedCardHolders.Length];
         
         for (int i = 0; i < placedCardHolders.Length; i++)
         {
@@ -38,14 +45,14 @@ public class CardRandomization : MonoBehaviour
             placedCardHolders[i].preserveAspect = true;
         }
         
-        
+        //send placed cards info (array) to dropping script
 
     }
 
     void DealPlayerCards()
     {
         //choose 2 cards from deck with no repeats
-        Sprite[] playerCardsSprites = new Sprite[playerCardHolders.Length];
+        playerCardsSprites = new Sprite[playerCardHolders.Length];
         
         for (int i = 0; i < playerCardHolders.Length; i++)
         {
@@ -60,6 +67,19 @@ public class CardRandomization : MonoBehaviour
         }
     }
     
+
+    public void UpdateCards(int placedCardIndex, int playerCardIndex)
+    {
+        //placed card turns into dropped card
+        placedCardHolders[placedCardIndex].sprite = playerCardHolders[playerCardIndex].sprite;
+
+        //dropped card is given random sprite
+        int randomIndex = UnityEngine.Random.Range(0, cardSprites.Length);
+        playerCardsSprites[playerCardIndex] = cardSprites[randomIndex];
+        playerCardHolders[playerCardIndex].sprite = playerCardsSprites[playerCardIndex];
+        
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 566760893}
   - component: {fileID: 566760895}
   - component: {fileID: 566760894}
+  - component: {fileID: 566760896}
   m_Layer: 5
   m_Name: Card Slot 3
   m_TagString: Untagged
@@ -333,6 +334,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566760892}
   m_CullTransparentMesh: 1
+--- !u!114 &566760896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566760892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c1c7e242897417a96648ba4288441f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropCards
+  cardRandomizationScript: {fileID: 1724646707}
 --- !u!1 &800346051
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +358,7 @@ GameObject:
   - component: {fileID: 800346052}
   - component: {fileID: 800346054}
   - component: {fileID: 800346053}
+  - component: {fileID: 800346055}
   m_Layer: 5
   m_Name: Card Slot 4
   m_TagString: Untagged
@@ -408,6 +423,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800346051}
   m_CullTransparentMesh: 1
+--- !u!114 &800346055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800346051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c1c7e242897417a96648ba4288441f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropCards
+  cardRandomizationScript: {fileID: 1724646707}
 --- !u!1 &930869603
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +486,7 @@ GameObject:
   - component: {fileID: 977038257}
   - component: {fileID: 977038259}
   - component: {fileID: 977038258}
+  - component: {fileID: 977038260}
   m_Layer: 5
   m_Name: Card Slot 2
   m_TagString: Untagged
@@ -522,6 +551,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977038256}
   m_CullTransparentMesh: 1
+--- !u!114 &977038260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977038256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c1c7e242897417a96648ba4288441f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropCards
+  cardRandomizationScript: {fileID: 1724646707}
 --- !u!1 &1001987339
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +691,7 @@ GameObject:
   - component: {fileID: 1235117774}
   - component: {fileID: 1235117776}
   - component: {fileID: 1235117775}
+  - component: {fileID: 1235117777}
   m_Layer: 5
   m_Name: Card Slot 1
   m_TagString: Untagged
@@ -713,6 +756,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235117773}
   m_CullTransparentMesh: 1
+--- !u!114 &1235117777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235117773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c1c7e242897417a96648ba4288441f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropCards
+  cardRandomizationScript: {fileID: 1724646707}
 --- !u!1 &1301878260
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +999,8 @@ GameObject:
   - component: {fileID: 1385925925}
   - component: {fileID: 1385925927}
   - component: {fileID: 1385925926}
+  - component: {fileID: 1385925929}
+  - component: {fileID: 1385925928}
   m_Layer: 5
   m_Name: Player Card Slot 2
   m_TagString: Untagged
@@ -1007,6 +1065,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385925924}
   m_CullTransparentMesh: 1
+--- !u!225 &1385925928
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385925924}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1385925929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385925924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e8aec67f77f48deb258a6978ade856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveCards
 --- !u!1 &1459582917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1137,8 @@ GameObject:
   - component: {fileID: 1589039378}
   - component: {fileID: 1589039380}
   - component: {fileID: 1589039379}
+  - component: {fileID: 1589039382}
+  - component: {fileID: 1589039381}
   m_Layer: 5
   m_Name: Player Card Slot 1
   m_TagString: Untagged
@@ -1119,6 +1203,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589039377}
   m_CullTransparentMesh: 1
+--- !u!225 &1589039381
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589039377}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1589039382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589039377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e8aec67f77f48deb258a6978ade856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveCards
 --- !u!1 &1656673523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1421,8 @@ MonoBehaviour:
   - {fileID: 2621682508800493701, guid: 34bc867be67cef2408cc26bd16ecf854, type: 3}
   - {fileID: -8037598280921309497, guid: 41346595a5de1ed46957ab594603c71b, type: 3}
   dealButton: {fileID: 1784422381}
+  placedCardsSprites: []
+  playerCardsSprites: []
 --- !u!4 &1724646708
 Transform:
   m_ObjectHideFlags: 0
