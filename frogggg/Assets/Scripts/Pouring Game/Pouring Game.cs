@@ -44,13 +44,17 @@ public class PouringGame : MonoBehaviour
     
     public float moveSpeed = 100f;
 
+    public GameObject pouringGameObject;
+
+    public PlayerInteraction playerInteractionScript;
+
     
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PourDemo();
+        
         pourButton.gameObject.SetActive(false);
         targetPosition = new Vector2(targetX, targetY);
         targetX = 0;
@@ -94,8 +98,12 @@ public class PouringGame : MonoBehaviour
     }
     
 
-    void PourDemo()
+    public void PourDemo()
     {   
+        pouringGameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+
+
         amountFilled += (25 * Time.deltaTime);
 
         if (amountFilled >= maxFill)
@@ -151,7 +159,10 @@ public class PouringGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(playerInteractionScript.playingPouringGame == true)
+        {
+            
+        
         SetFillAmount();
         SetMaxFill();
 
@@ -194,5 +205,6 @@ public class PouringGame : MonoBehaviour
         Debug.Log(targetY);
 
         scoreText.text = "Score: " + amountFilled.ToString("F0"); 
+        }
     }
 }

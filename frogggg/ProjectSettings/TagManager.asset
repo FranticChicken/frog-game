@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Glass
   - Wall
+  - PourGame
+  - PianoGame
+  - CardGame
+  - GameTrigger
   layers:
   - Default
   - TransparentFX
@@ -13,7 +17,7 @@ TagManager:
   - Camera Collides
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

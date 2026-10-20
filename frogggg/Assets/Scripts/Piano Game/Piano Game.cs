@@ -14,6 +14,7 @@ public class PianoGame : MonoBehaviour
     public Sprite arrowRightSprite;
     public Sprite arrowLeftSprite;
     
+    public GameObject pianoGameObject;
     
 
     public TextMeshProUGUI correctInputText;
@@ -30,21 +31,31 @@ public class PianoGame : MonoBehaviour
     public AudioClip pianoSong;
     public AudioClip pianoTang;
 
+    public PlayerInteraction playerInteractionScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       pianoAudioSource.clip = pianoSong;
-        pianoAudioSource.loop = true;
-        pianoAudioSource.Play();
-
-        PlayPiano();
+        
     }
 
-    void PlayPiano()
+    public void StartPianoGame()
     {
-       inputTimer = 0f;
-       StartCoroutine(CheckInputs());
+        Cursor.lockState = CursorLockMode.None;
+        //make UI elements appear 
+        pianoGameObject.SetActive(true);
+        PlayPiano();
+    }
+    public void PlayPiano()
+    {
+        Debug.Log("piano play function called");
+        
+
+        pianoAudioSource.clip = pianoSong;
+        pianoAudioSource.loop = true;
+        pianoAudioSource.Play();
+        inputTimer = 0f;
+        StartCoroutine(CheckInputs());
     }
 
     IEnumerator CheckInputs()
@@ -97,8 +108,16 @@ public class PianoGame : MonoBehaviour
                     correctInputText.text = "OFFF KEEEY";
                     pianoAudioSource.Stop();
                     pianoAudioSource.PlayOneShot(pianoTang);
-                    PlayPiano();
-                    yield break;
+                    if(playerInteractionScript.gaming == true)
+                    {
+                        
+                    
+                        PlayPiano();
+                    }
+                    else
+                    {
+                        yield break;
+                    }
                 }
                 
                 inputTimer += Time.deltaTime;
@@ -111,13 +130,25 @@ public class PianoGame : MonoBehaviour
                 correctInputText.text = "OFFF KEEEY";
                 pianoAudioSource.Stop();
                 pianoAudioSource.PlayOneShot(pianoTang);
-                PlayPiano();
-                yield break;
+                if(playerInteractionScript.gaming == true)
+                {
+                    
+                
+                    PlayPiano();
+                }
+                else
+                {
+                  yield break;  
+                }
+                
             }
         }
         
         correctInputText.text = "so melodic";
-        PlayPiano();
+        if(playerInteractionScript.gaming == true){
+            PlayPiano();
+        }
+        
        
     }
     

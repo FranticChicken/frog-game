@@ -15,15 +15,33 @@ public class CardRandomization : MonoBehaviour
     public Sprite[] placedCardsSprites;
     [HideInInspector]
     public Sprite [] playerCardsSprites;
+    public GameObject cardGameObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dealButton.onClick.AddListener(DealPlacedCards);
-        DealPlayerCards();
-        DealPlacedCards();
+
+        
     }
 
+    public void StartCardGame()
+    {
+        DealPlayerCards();
+        DealPlacedCards();
+        Cursor.lockState = CursorLockMode.None;
+
+        cardGameObject.SetActive(true);
+        for (int i = 0; i < playerCardHolders.Length; i++)
+        {
+            playerCardHolders[i].gameObject.SetActive(true);
+        }
+        for (int i = 0; i < placedCardHolders.Length; i++)
+        {
+            placedCardHolders[i].gameObject.SetActive(true);
+        }
+        
+    }
     
     void DealPlacedCards()
     {

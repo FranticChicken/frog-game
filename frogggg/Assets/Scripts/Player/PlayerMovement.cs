@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference lookAction;
     float speed = 5f;
     float mouseSense = 0.4f;
+    public PlayerInteraction playerInteractionScript;
 
     CharacterController controller;
 
@@ -37,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerInteractionScript.gaming == false)
+        {
+            
+        
         MovePlayer();
+        }
     }
 }
