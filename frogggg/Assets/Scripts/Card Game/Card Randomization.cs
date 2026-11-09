@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
+
+using Random = UnityEngine.Random;
 
 public class CardRandomization : MonoBehaviour
 {
@@ -17,12 +18,13 @@ public class CardRandomization : MonoBehaviour
     public Sprite [] playerCardsSprites;
     public GameObject cardGameObject;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dealButton.onClick.AddListener(DealPlacedCards);
-
-        
+        //Sprite mySprite = new Sprite();
+        //System.Object myObject = (System.Object)mySprite;
     }
 
     public void StartCardGame()
@@ -40,6 +42,7 @@ public class CardRandomization : MonoBehaviour
         {
             placedCardHolders[i].gameObject.SetActive(true);
         }
+        
         
     }
     

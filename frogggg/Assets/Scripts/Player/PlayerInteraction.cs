@@ -82,9 +82,7 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         gaming = true;
                         Debug.Log("Playing Game");
-                        pianoGameScript.StartPianoGame();
-                        
-                        //start game in proper script
+                        pianoGameScript.StartGame();
                     }
                     
                 }
@@ -113,6 +111,7 @@ public class PlayerInteraction : MonoBehaviour
             cardGameObject.SetActive(false);
             pouringGameObject.SetActive(false);
             pianoGameObject.SetActive(false);
+            pianoGameScript.ExitGame();
             gaming = false;
             playingPouringGame =false;
                         

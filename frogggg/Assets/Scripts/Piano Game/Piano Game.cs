@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
+using NUnit.Framework;
 
 
 public class PianoGame : MonoBehaviour
@@ -33,35 +34,57 @@ public class PianoGame : MonoBehaviour
 
     public PlayerInteraction playerInteractionScript;
 
+    [HideInInspector]
+    public bool isPlayingPianoGame;
+
+    Coroutine pianoCoroutine;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
 
-    public void StartPianoGame()
+    public void StartGame()
     {
-        Cursor.lockState = CursorLockMode.None;
-        //make UI elements appear 
-        pianoGameObject.SetActive(true);
-        PlayPiano();
+        if(pianoCoroutine != null)
+        {
+            StopCoroutine(pianoCoroutine);
+        }
+        pianoCoroutine = StartCoroutine(PlayPianoGame());
     }
-    public void PlayPiano()
-    {
-        Debug.Log("piano play function called");
-        
 
+    public void ExitGame()
+    {
+       if(pianoCoroutine != null)
+        {
+            StopCoroutine(pianoCoroutine);
+            pianoCoroutine = null;
+        }
+
+        //prepare for out of minigame experience lol
+        //music
+        //ui
+        pianoGameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayPianoGame()
+    {
+        //lock cursor
+        Cursor.lockState = CursorLockMode.None;
+
+        //make UI elements appear
+        pianoGameObject.SetActive(true);
+
+        //music start (MAY WANT THIS tO START LATER)
         pianoAudioSource.clip = pianoSong;
         pianoAudioSource.loop = true;
         pianoAudioSource.Play();
-        inputTimer = 0f;
-        StartCoroutine(CheckInputs());
-    }
+        
 
-    IEnumerator CheckInputs()
-    {
-        inputTimer = 0;
+        isPlayingPianoGame = true;
 
+        //set array of possible inputs
         InputActionReference[] inputPool = new InputActionReference[] 
         { 
             rightArrowInput, 
@@ -70,87 +93,80 @@ public class PianoGame : MonoBehaviour
             upArrowInput 
         };
 
-        InputActionReference[] requiredSequence = new InputActionReference[arrowImageHolders.Length];
-
-        
-        for (int i = 0; i < requiredSequence.Length; i++)
+        while (isPlayingPianoGame)
         {
-            int randomIndex = UnityEngine.Random.Range(0, inputPool.Length);
-            requiredSequence[i] = inputPool[randomIndex]; 
-        }
-
-        SetArrowImagePositions(requiredSequence);
-
-        
-       
-       //go through the array of actions and make sure player has pressed those keys in that order before time runs out
-       for(int i = 0; i < requiredSequence.Length; i++)
-        {
-            InputAction currentRequiredInput = requiredSequence[i].action;
-            bool inputCompleted = false;
             
+        
+            //set array that will change the required inputs each interaction
+            InputActionReference[] requiredSequence = new InputActionReference[arrowImageHolders.Length];
 
-            while(inputTimer < timeLeft && inputCompleted == false)
+            //choose random input required
+            for (int i = 0; i < requiredSequence.Length; i++)
             {
-                if (currentRequiredInput.WasPressedThisFrame())
-                {
-                    inputCompleted = true;
+                int randomIndex = UnityEngine.Random.Range(0, inputPool.Length);
+                requiredSequence[i] = inputPool[randomIndex]; 
+            }
 
+            //show the input required through UI images
+            SetArrowImagePositions(requiredSequence);
+
+            //start timer at 0
+            inputTimer = 0;
+            bool failedInputs = false;
+
+            //go through the array of actions and make sure player has pressed those keys in that order before time runs out
+            for(int i = 0; i < requiredSequence.Length; i++)
+            {
+                InputAction currentRequiredInput = requiredSequence[i].action;
+                bool inputCompleted = false;
+                
+
+                
+                while(inputTimer < timeLeft && inputCompleted == false && failedInputs == false)
+                {
+                    if (currentRequiredInput.WasPressedThisFrame())
+                    {
+                        inputCompleted = true;
+                        Color tempColour = arrowImageHolders[i].color;
+                        tempColour.a = 0.5f;
+                        arrowImageHolders[i].color = tempColour;
+                    }
+                    else if(upArrowInput.action.WasPressedThisFrame() || downArrowInput.action.WasPressedThisFrame() 
+                    || rightArrowInput.action.WasPressedThisFrame() || leftArrowInput.action.WasPressedThisFrame())
+                    {
+                        correctInputText.text = "OFFF KEEEY";
+                        pianoAudioSource.Stop();
+                        pianoAudioSource.PlayOneShot(pianoTang);
+                        failedInputs = true;
+                        break;
+                    }
                     
-                    
-                    Color tempColour = arrowImageHolders[i].color;
-                    tempColour.a = 0.5f;
-                    arrowImageHolders[i].color = tempColour;
+                    inputTimer += Time.deltaTime;
+                    yield return null;
                 }
-                else if(upArrowInput.action.WasPressedThisFrame() || downArrowInput.action.WasPressedThisFrame() 
-                || rightArrowInput.action.WasPressedThisFrame() || leftArrowInput.action.WasPressedThisFrame())
+
+                //time check
+                if(failedInputs || inputTimer >= timeLeft)
                 {
                     correctInputText.text = "OFFF KEEEY";
                     pianoAudioSource.Stop();
                     pianoAudioSource.PlayOneShot(pianoTang);
-                    if(playerInteractionScript.gaming == true)
-                    {
-                        
-                    
-                        PlayPiano();
-                    }
-                    else
-                    {
-                        yield break;
-                    }
+                    failedInputs = true;
+                    break;
                 }
-                
-                inputTimer += Time.deltaTime;
-                yield return null;
             }
 
-            //time check
-            if(inputTimer >= timeLeft)
+            if (failedInputs)
             {
-                correctInputText.text = "OFFF KEEEY";
-                pianoAudioSource.Stop();
-                pianoAudioSource.PlayOneShot(pianoTang);
-                if(playerInteractionScript.gaming == true)
-                {
-                    
-                
-                    PlayPiano();
-                }
-                else
-                {
-                  yield break;  
-                }
-                
+                isPlayingPianoGame = false;
             }
         }
         
-        correctInputText.text = "so melodic";
-        if(playerInteractionScript.gaming == true){
-            PlayPiano();
-        }
-        
-       
+        ExitGame();
     }
+    
+
+    
     
     void SetArrowImagePositions(InputActionReference[] newArrowInputs)
     {
@@ -177,7 +193,7 @@ public class PianoGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(inputTimer);
+        
     }
     
 }
