@@ -2993,6 +2993,8 @@ MonoBehaviour:
   moveSpeed: 100
   pouringGameObject: {fileID: 2143699615}
   playerInteractionScript: {fileID: 301747447}
+  gameOverUIScript: {fileID: 1979166816}
+  mainPouringGameObject: {fileID: 2143699615}
 --- !u!1 &486366377
 GameObject:
   m_ObjectHideFlags: 0
@@ -10545,6 +10547,7 @@ MonoBehaviour:
   pianoGameScript: {fileID: 454327974}
   pouringGameScript: {fileID: 454327979}
   cardGameScript: {fileID: 454327978}
+  playerInteractionScript: {fileID: 301747447}
 --- !u!4 &1979166817
 Transform:
   m_ObjectHideFlags: 0
