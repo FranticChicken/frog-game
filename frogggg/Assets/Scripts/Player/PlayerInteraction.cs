@@ -110,7 +110,10 @@ public class PlayerInteraction : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             cardGameObject.SetActive(false);
+            cardGameScript.ExitGame();
+
             pouringGameScript.ExitGame();
+            
             pianoGameObject.SetActive(false);
             pianoGameScript.ExitGame();
             //gaming = false;

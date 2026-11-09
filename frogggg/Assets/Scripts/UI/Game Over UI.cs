@@ -41,11 +41,11 @@ public class GameOverUI : MonoBehaviour
         {
             pouringGameScript.StartGame();
         }
-        if(gameInt2 == 3)
+        if(gameInt2 == 2)
         {
             cardGameScript.StartCardGame();
         }
-        if(gameInt2 == 4)
+        if(gameInt2 == 3)
         {
             
         }

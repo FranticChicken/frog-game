@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 
 using Random = UnityEngine.Random;
+using System.Collections;
 
 public class CardRandomization : MonoBehaviour
 {
@@ -17,6 +18,15 @@ public class CardRandomization : MonoBehaviour
     [HideInInspector]
     public Sprite [] playerCardsSprites;
     public GameObject cardGameObject;
+    Coroutine cardCoroutine;
+    public GameOverUI gameOverUIScript;
+
+    int score;
+
+    float timer;
+
+    public TextMeshProUGUI timerText;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,10 +39,35 @@ public class CardRandomization : MonoBehaviour
 
     public void StartCardGame()
     {
+        if(cardCoroutine != null)
+        {
+            StopCoroutine(cardCoroutine);
+            cardCoroutine = null;
+        }
+       
+        cardCoroutine = StartCoroutine(PlayCardGame());
+    }
+
+    public void ExitGame()
+    {
+        if(cardCoroutine!= null)
+        {
+            StopCoroutine(cardCoroutine);
+            cardCoroutine = null;
+            gameOverUIScript.MakeRetryMenuAppear(2, score);
+            
+        }
+
+        cardGameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayCardGame()
+    {
         DealPlayerCards();
         DealPlacedCards();
+        score = 0;
         Cursor.lockState = CursorLockMode.None;
-
+        timer = 30;
         cardGameObject.SetActive(true);
         for (int i = 0; i < playerCardHolders.Length; i++)
         {
@@ -43,7 +78,15 @@ public class CardRandomization : MonoBehaviour
             placedCardHolders[i].gameObject.SetActive(true);
         }
         
+        while(timer > 0f)
+        {
+
+            timer -= Time.deltaTime;
+            timerText.text = "0:" + Mathf.CeilToInt(timer).ToString();
+            yield return null;
+        }
         
+        ExitGame();
     }
     
     void DealPlacedCards()
@@ -93,6 +136,7 @@ public class CardRandomization : MonoBehaviour
     {
         //placed card turns into dropped card
         placedCardHolders[placedCardIndex].sprite = playerCardHolders[playerCardIndex].sprite;
+        score +=5;
 
         //dropped card is given random sprite
         int randomIndex = UnityEngine.Random.Range(0, cardSprites.Length);
