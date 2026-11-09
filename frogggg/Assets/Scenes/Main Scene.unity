@@ -12235,6 +12235,11 @@ MonoBehaviour:
   resumeButton: {fileID: 414760672}
   pauseMenu: {fileID: 1892771948}
   playerInteractionScript: {fileID: 301747447}
+--- !u!1 &1996461240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2218964882744534334, guid: e33c040d59ead467782aa4748b1b49bf, type: 3}
+  m_PrefabInstance: {fileID: 1937225210660785825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2002201750
 GameObject:
   m_ObjectHideFlags: 0
@@ -13426,6 +13431,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1549388224151797636, guid: e33c040d59ead467782aa4748b1b49bf, type: 3}
   m_PrefabInstance: {fileID: 1937225210660785825}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &543450651810346940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996461240}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0730026, y: 1.5664561, z: 3.953356}
+  m_Center: {x: 0.0025349658, y: -0.28322974, z: -0.018059026}
 --- !u!4 &543450652110310213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 167070660689509191, guid: a1bf1a96f5b4a4d89b3ed47d36c694ce, type: 3}
@@ -13569,7 +13595,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2218964882744534334, guid: e33c040d59ead467782aa4748b1b49bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 543450651810346940}
   m_SourcePrefab: {fileID: 100100000, guid: e33c040d59ead467782aa4748b1b49bf, type: 3}
 --- !u!1001 &7196338942970982448
 PrefabInstance:
