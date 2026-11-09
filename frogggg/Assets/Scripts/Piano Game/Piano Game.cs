@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
-using NUnit.Framework;
 
 
 public class PianoGame : MonoBehaviour
@@ -39,6 +38,9 @@ public class PianoGame : MonoBehaviour
 
     Coroutine pianoCoroutine;
 
+    public GameOverUI gameOverUIScript;
+    int score; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -60,6 +62,7 @@ public class PianoGame : MonoBehaviour
         {
             StopCoroutine(pianoCoroutine);
             pianoCoroutine = null;
+            gameOverUIScript.MakeRetryMenuAppear(0, score);
         }
 
         //prepare for out of minigame experience lol
@@ -81,6 +84,7 @@ public class PianoGame : MonoBehaviour
         pianoAudioSource.loop = true;
         pianoAudioSource.Play();
         
+        score = 0;
 
         isPlayingPianoGame = true;
 
@@ -112,6 +116,7 @@ public class PianoGame : MonoBehaviour
 
             //start timer at 0
             inputTimer = 0;
+            
             bool failedInputs = false;
 
             //go through the array of actions and make sure player has pressed those keys in that order before time runs out
@@ -154,14 +159,19 @@ public class PianoGame : MonoBehaviour
                     failedInputs = true;
                     break;
                 }
+                
             }
 
             if (failedInputs)
             {
                 isPlayingPianoGame = false;
             }
+            else
+            {
+                score += 5;
+            }
         }
-        
+
         ExitGame();
     }
     

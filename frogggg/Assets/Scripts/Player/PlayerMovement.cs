@@ -40,9 +40,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(playerInteractionScript.gaming == false)
         {
-            
-        
-        MovePlayer();
+            MovePlayer();
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }

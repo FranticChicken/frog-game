@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     [HideInInspector]
     public bool gaming;
     public bool playingPouringGame;
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -69,7 +70,7 @@ public class PlayerInteraction : MonoBehaviour
                         Debug.Log("Playing Game");
                         gaming = true;
                         playingPouringGame = true;
-                        pouringGameScript.PourDemo();
+                        pouringGameScript.StartGame();
                         
                         
                     }
@@ -107,13 +108,13 @@ public class PlayerInteraction : MonoBehaviour
 
         if (escapeAction.action.WasPressedThisFrame())
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
             cardGameObject.SetActive(false);
-            pouringGameObject.SetActive(false);
+            pouringGameScript.ExitGame();
             pianoGameObject.SetActive(false);
             pianoGameScript.ExitGame();
-            gaming = false;
-            playingPouringGame =false;
+            //gaming = false;
+            //playingPouringGame =false;
                         
         }
 

@@ -30,7 +30,7 @@ public class PouringGame : MonoBehaviour
 
     //demo 
     bool demo = true;
-    float demotimer = 2.0f;
+    
 
     //cup moving animation
     bool isCupMoving = false;
@@ -48,19 +48,154 @@ public class PouringGame : MonoBehaviour
 
     public PlayerInteraction playerInteractionScript;
 
-    
+    Coroutine pouringCoroutine;
+
+    public GameOverUI gameOverUIScript; 
+    public GameObject mainPouringGameObject;
+    int score;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
-        pourButton.gameObject.SetActive(false);
-        targetPosition = new Vector2(targetX, targetY);
-        targetX = 0;
-        targetY = -200f;
+        
+    }
 
+    public void StartGame()
+    {
+        if(pouringCoroutine != null)
+        {
+            StopCoroutine(pouringCoroutine);
+            pouringCoroutine = null;
+        }
+       
+        
+        pouringCoroutine = StartCoroutine(PlayPouringGame());
+    }
+
+    public void ExitGame()
+    {
+        if(pouringCoroutine != null)
+        {
+            StopCoroutine(pouringCoroutine);
+            pouringCoroutine = null;
+            gameOverUIScript.MakeRetryMenuAppear(1, score);
+        }
+
+        mainPouringGameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayPouringGame()
+    {
+        pouringGameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None; 
         scoreText.gameObject.SetActive(false);
+        score = 0;
+        pourButton.gameObject.SetActive(false);
+        liquidPouringImage.gameObject.SetActive(true);
+
+        amountFilled = 0;
+        SetFillAmount();
+        SetMaxFill();
+
+        demo = true;
+        float demotimer = 2.0f;
+
+        //targetPosition = new Vector2(targetX, targetY);
+        //targetX = 0;
+        //targetY = -200f;
+        
+        while(demo)
+        {
+            amountFilled += (25 * Time.deltaTime);
+            SetFillAmount();
+
+            if (amountFilled >= maxFill)
+            {
+                liquidPouringImage.gameObject.SetActive(false);
+            
+                //pause after the demo before it is the players turn
+                demotimer -= Time.deltaTime;
+                if( demotimer <= 0)
+                {
+                    amountFilled = 0;
+                    SetFillAmount();
+                    //isCupMoving = true;
+                    demo = false;
+                }
+                
+            }
+
+            //PourDemo();
+            //break;
+            yield return null;
+        }
+
+        isCupMoving = true; 
+
+        while(isCupMoving)
+        {
+            MoveCupUp(false);
+
+            if(glassStuffRect.anchoredPosition.y <= -250)
+            {
+                isCupMoving = false;
+                SetPourButtonActive(true);
+            }
+            yield return null;
+        }
+
+        while(isCupMoving2 == false)
+        {
+            yield return null;
+        }
+
+        while(isCupMoving2 == true)
+        {
+            MoveCupUp(true);
+            SetPourButtonActive(false);
+
+            if(glassStuffRect.anchoredPosition.y >= 27)
+            {
+                isCupMoving2 = false;
+                
+            }
+            yield return null;
+        }
+        
+        if(amountFilled > maxFill)
+        {
+            score = 0;
+        }
+        if(amountFilled == maxFill)
+        {
+            score = 100;
+        }
+        if(amountFilled <= maxFill / 4)
+        {
+            score = 1;
+        }
+        if(amountFilled <= maxFill/2 && amountFilled > maxFill / 4)
+        {
+            score = 5;
+        }
+        if(amountFilled <= maxFill/4 * 3 && amountFilled > maxFill/2)
+        {
+            score = 10;
+        }
+        if(amountFilled < maxFill && amountFilled > maxFill/ 4 * 3)
+        {
+            score = 35;
+        }
+
+
+
+        yield return new WaitForSeconds(3.0f);
+
+
+        
+        ExitGame();
     }
 
     //sets the max fill height to the same as the glass height (important for when we change the glass later)
@@ -72,8 +207,6 @@ public class PouringGame : MonoBehaviour
     //visually shows how filled the glass is
     public void SetFillAmount()
     {
-        
-
         float newHeight = (amountFilled / maxFill) * maxFill;
 
         if(amountFilled > maxFill)
@@ -86,8 +219,6 @@ public class PouringGame : MonoBehaviour
             //otherwise just show normal filled amount visually
             liquidFillRect.sizeDelta = new Vector2(glassRect.rect.width, newHeight);
         }
-
-        
     }
 
     //makes the amount filled based off time the player poured
@@ -95,36 +226,11 @@ public class PouringGame : MonoBehaviour
     public void Pour(float timePoured) 
     {
         amountFilled = timePoured * 25;
+        SetFillAmount();
     }
     
 
-    public void PourDemo()
-    {   
-        pouringGameObject.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-
-
-        amountFilled += (25 * Time.deltaTime);
-
-        if (amountFilled >= maxFill)
-        {
-            liquidPouringImage.gameObject.SetActive(false);
-
-            
-            //pause after the demo before it is the players turn
-            if(demotimer > 0)
-            {
-                demotimer -= Time.deltaTime;
-                if( demotimer <= 0)
-                {
-                    amountFilled = 0;
-                    
-                    isCupMoving = true;
-                    demo = false;
-                }
-            }
-        }
-    }
+    
 
     public void MoveCupUp(bool moveUp)
     {
@@ -159,52 +265,10 @@ public class PouringGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerInteractionScript.playingPouringGame == true)
-        {
+        
             
         
-        SetFillAmount();
-        SetMaxFill();
 
-        if(demo == true)
-        {
-            PourDemo();
-        }
-        
-        //if iscupmoving = true and 
-        if(isCupMoving == true)
-        {
-            MoveCupUp(false);
-        }
-
-        if(glassStuffRect.anchoredPosition.y <= -250)
-        {
-            isCupMoving = false;
-            SetPourButtonActive(true);
-        }
-
-        if(isCupMoving2 == true)
-        {
-            MoveCupUp(true);
-            SetPourButtonActive(false);
-        }
-
-        if(glassStuffRect.anchoredPosition.y >= 27)
-        {
-            isCupMoving2 = false;
-            
-        }
-
-        if(demo == false && isCupMoving == false && isCupMoving2 == false && glassStuffRect.anchoredPosition.y >= 27)
-        {
-            scoreText.gameObject.SetActive(true);
-        }
-        
-
-        Debug.Log(isCupMoving);
-        Debug.Log(targetY);
-
-        scoreText.text = "Score: " + amountFilled.ToString("F0"); 
-        }
     }
+    
 }
