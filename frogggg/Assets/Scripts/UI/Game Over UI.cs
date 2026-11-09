@@ -15,6 +15,8 @@ public class GameOverUI : MonoBehaviour
     public CardRandomization cardGameScript;
     public PlayerInteraction playerInteractionScript;
 
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -59,6 +61,8 @@ public class GameOverUI : MonoBehaviour
         //return player movement
         playerInteractionScript.gaming = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        
     }
 
     public void MakeRetryMenuAppear(int gameInt, int score)
@@ -95,6 +99,7 @@ public class GameOverUI : MonoBehaviour
             scoreText.text = "You got " + score + " points!";
         }
 
+        
     }
 
     // Update is called once per frame

@@ -19,6 +19,12 @@ public class PlayerInteraction : MonoBehaviour
     [HideInInspector]
     public bool gaming;
     public bool playingPouringGame;
+
+    //audio
+    public AudioSource audioSrc;
+    public AudioClip jazz;
+    public AudioClip winSFX;
+    public AudioClip loseSFX;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -113,12 +119,21 @@ public class PlayerInteraction : MonoBehaviour
             cardGameScript.ExitGame();
 
             pouringGameScript.ExitGame();
-            
+
             pianoGameObject.SetActive(false);
             pianoGameScript.ExitGame();
             //gaming = false;
             //playingPouringGame =false;
                         
+        }
+        if(gaming == true)
+        {
+            audioSrc.Pause();
+            
+        }
+        else
+        {
+            audioSrc.UnPause();
         }
 
     }

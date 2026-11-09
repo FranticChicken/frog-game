@@ -28,8 +28,10 @@ public class PianoGame : MonoBehaviour
     public InputActionReference upArrowInput;
 
     public AudioSource pianoAudioSource;
+    public AudioSource SFXAudioSrc;
     public AudioClip pianoSong;
     public AudioClip pianoTang;
+    public AudioClip pianoWin;
 
     public PlayerInteraction playerInteractionScript;
 
@@ -169,6 +171,7 @@ public class PianoGame : MonoBehaviour
             else
             {
                 score += 5;
+                SFXAudioSrc.PlayOneShot(pianoWin);
             }
         }
 
