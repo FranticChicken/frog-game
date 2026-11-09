@@ -2967,7 +2967,8 @@ MonoBehaviour:
   placedCardsSprites: []
   playerCardsSprites: []
   cardGameObject: {fileID: 1544323605}
-  gameOverUIScript: {fileID: 0}
+  gameOverUIScript: {fileID: 1979166816}
+  timerText: {fileID: 611553860}
 --- !u!114 &454327979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3688,7 +3689,7 @@ GameObject:
   - component: {fileID: 611553861}
   - component: {fileID: 611553860}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Timer Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9174,7 +9175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1544323606
 RectTransform:
   m_ObjectHideFlags: 0
