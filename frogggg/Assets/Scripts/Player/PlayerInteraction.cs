@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -25,12 +26,15 @@ public class PlayerInteraction : MonoBehaviour
     public AudioClip jazz;
     public AudioClip winSFX;
     public AudioClip loseSFX;
+    public Image pauseMenu; 
    
+
+   public bool isInPauseMenu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        isInPauseMenu = false;
         canGame = false;
         gaming = false;
         playingPouringGame = false;
@@ -124,7 +128,12 @@ public class PlayerInteraction : MonoBehaviour
             pianoGameScript.ExitGame();
             //gaming = false;
             //playingPouringGame =false;
-                        
+            
+            if(gaming == false)
+            {
+                isInPauseMenu = true;
+                pauseMenu.gameObject.SetActive(true);
+            }
         }
         if(gaming == true)
         {

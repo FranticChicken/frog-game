@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerInteractionScript.gaming == false)
+        if(playerInteractionScript.gaming == false && playerInteractionScript.isInPauseMenu == false)
         {
             MovePlayer();
             Cursor.lockState = CursorLockMode.Locked;
