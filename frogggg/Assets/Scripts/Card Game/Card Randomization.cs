@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 using Random = UnityEngine.Random;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 public class CardRandomization : MonoBehaviour
 {
@@ -21,9 +22,13 @@ public class CardRandomization : MonoBehaviour
     Coroutine cardCoroutine;
     public GameOverUI gameOverUIScript;
 
+    
+    public Image[] glowImages;
+
     int score;
 
     float timer;
+    float glowTimer;
 
     public TextMeshProUGUI timerText;
 
@@ -137,7 +142,9 @@ public class CardRandomization : MonoBehaviour
         //placed card turns into dropped card
         placedCardHolders[placedCardIndex].sprite = playerCardHolders[playerCardIndex].sprite;
         score +=5;
-
+        //animate
+        glowTimer = 2f;
+        StartCoroutine(GlowCard(placedCardIndex));
         //dropped card is given random sprite
         int randomIndex = UnityEngine.Random.Range(0, cardSprites.Length);
         playerCardsSprites[playerCardIndex] = cardSprites[randomIndex];
@@ -145,6 +152,18 @@ public class CardRandomization : MonoBehaviour
         
     }
 
+    public IEnumerator GlowCard(int placedCardIndex)
+    {
+        while(glowTimer > 0f)
+        {
+            glowImages[placedCardIndex].gameObject.SetActive(true);
+            glowTimer -= Time.deltaTime;
+            
+            yield return null;
+        }
+
+        glowImages[placedCardIndex].gameObject.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
