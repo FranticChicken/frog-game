@@ -17,7 +17,7 @@ public class PianoGame : MonoBehaviour
     public GameObject pianoGameObject;
     
 
-    public TextMeshProUGUI correctInputText;
+    public TextMeshProUGUI timerText;
 
     float inputTimer;
     float timeLeft =5;
@@ -42,6 +42,7 @@ public class PianoGame : MonoBehaviour
 
     public GameOverUI gameOverUIScript;
     int score; 
+    float timerTextTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -118,6 +119,8 @@ public class PianoGame : MonoBehaviour
 
             //start timer at 0
             inputTimer = 0;
+            timerTextTimer = 5;
+            timerText.text = "0:00";
             
             bool failedInputs = false;
 
@@ -141,23 +144,26 @@ public class PianoGame : MonoBehaviour
                     else if(upArrowInput.action.WasPressedThisFrame() || downArrowInput.action.WasPressedThisFrame() 
                     || rightArrowInput.action.WasPressedThisFrame() || leftArrowInput.action.WasPressedThisFrame())
                     {
-                        correctInputText.text = "OFFF KEEEY";
+                        
                         pianoAudioSource.Stop();
-                        pianoAudioSource.PlayOneShot(pianoTang);
+                        SFXAudioSrc.PlayOneShot(pianoTang);
                         failedInputs = true;
                         break;
                     }
                     
                     inputTimer += Time.deltaTime;
+                    timerTextTimer -= Time.deltaTime;
+                    timerText.text = "0:0" + Mathf.CeilToInt(timerTextTimer).ToString();
+                   
                     yield return null;
                 }
 
                 //time check
                 if(failedInputs || inputTimer >= timeLeft)
                 {
-                    correctInputText.text = "OFFF KEEEY";
+                    
                     pianoAudioSource.Stop();
-                    pianoAudioSource.PlayOneShot(pianoTang);
+                    SFXAudioSrc.PlayOneShot(pianoTang);
                     failedInputs = true;
                     break;
                 }

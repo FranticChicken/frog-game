@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     public InputActionReference interactAction;
     public InputActionReference escapeAction; 
+    public InputActionReference tabAction;
     public PianoGame pianoGameScript;
     public PouringGame pouringGameScript;
     public CardRandomization cardGameScript;
@@ -23,18 +25,25 @@ public class PlayerInteraction : MonoBehaviour
 
     //audio
     public AudioSource audioSrc;
+    public AudioSource pianoAudioSource;
     public AudioClip jazz;
     public AudioClip winSFX;
     public AudioClip loseSFX;
     public Image pauseMenu; 
+
+    public Image shopMenu;
+
+    public bool isInShopMenu;
    
 
    public bool isInPauseMenu;
+   public CameraController camScript; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         isInPauseMenu = false;
+        isInShopMenu = false;
         canGame = false;
         gaming = false;
         playingPouringGame = false;
@@ -81,6 +90,7 @@ public class PlayerInteraction : MonoBehaviour
                         gaming = true;
                         playingPouringGame = true;
                         pouringGameScript.StartGame();
+                        camScript.SwitchCam(1,15);
                         
                         
                     }
@@ -94,6 +104,7 @@ public class PlayerInteraction : MonoBehaviour
                         gaming = true;
                         Debug.Log("Playing Game");
                         pianoGameScript.StartGame();
+                        camScript.SwitchCam(0,15);
                     }
                     
                 }
@@ -105,6 +116,7 @@ public class PlayerInteraction : MonoBehaviour
                         Debug.Log("Playing Game");
                         gaming = true;
                         cardGameScript.StartCardGame();
+                        camScript.SwitchCam(2,15);
                         
                         //start game in proper script
                     }
@@ -126,15 +138,18 @@ public class PlayerInteraction : MonoBehaviour
 
             pianoGameObject.SetActive(false);
             pianoGameScript.ExitGame();
+            pianoAudioSource.Stop();
             //gaming = false;
             //playingPouringGame =false;
             
-            if(gaming == false)
+            if(gaming == false && isInShopMenu == false)
             {
                 isInPauseMenu = true;
                 pauseMenu.gameObject.SetActive(true);
             }
         }
+
+
         if(gaming == true)
         {
             audioSrc.Pause();
@@ -145,5 +160,14 @@ public class PlayerInteraction : MonoBehaviour
             audioSrc.UnPause();
         }
 
+        if (tabAction.action.WasPressedThisFrame())
+        {
+            if(gaming == false && isInPauseMenu == false)
+            {
+                shopMenu.gameObject.SetActive(true);
+                isInShopMenu = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
     }
 }

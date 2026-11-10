@@ -14,8 +14,9 @@ public class GameOverUI : MonoBehaviour
     public PouringGame pouringGameScript;
     public CardRandomization cardGameScript;
     public PlayerInteraction playerInteractionScript;
+    public CameraController camScript;
 
-    
+    public HUD hudScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,6 +62,8 @@ public class GameOverUI : MonoBehaviour
         //return player movement
         playerInteractionScript.gaming = false;
         Cursor.lockState = CursorLockMode.Locked;
+        camScript.SwitchCam(gameInt2, 5);
+        
 
         
     }
@@ -70,6 +73,7 @@ public class GameOverUI : MonoBehaviour
         retryMenu.gameObject.SetActive(true);
         gameInt2 = gameInt;
         Cursor.lockState = CursorLockMode.None;
+        hudScript.UpdatePlayerMoney(score);
         //return player cursor
 
         //0 = piano game
@@ -80,7 +84,7 @@ public class GameOverUI : MonoBehaviour
 
         if(gameInt == 0)
         {
-            retryText.text = "You played off key! Try Again!";
+            retryText.text = "You played off key!";
             scoreText.text = "You got " + score + " points!";
         }
         else if(gameInt == 1)

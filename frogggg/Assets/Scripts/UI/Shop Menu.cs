@@ -9,6 +9,7 @@ public class ShopMenu : MonoBehaviour
     public Image shopMenu;
     public TextMeshProUGUI item1Text;
     public TextMeshProUGUI itemText2;
+    public PlayerInteraction playerInteractionScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,8 +21,8 @@ public class ShopMenu : MonoBehaviour
     void OnEscapeButtonClick()
     {
         shopMenu.gameObject.SetActive(false);
-        //player movement resumed
-        //cursor locked
+        Cursor.lockState = CursorLockMode.Locked;
+        playerInteractionScript.isInShopMenu = false;
     }
 
     void OnShopItemButton1Click()
